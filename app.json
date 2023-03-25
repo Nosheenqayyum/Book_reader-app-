@@ -1,0 +1,62 @@
+{
+  "expo": {
+    "name": "Little Book",
+    "displayName": "Little Book",
+    "slug": "reader",
+    "version": "2.2.4",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3b5f76"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.littlebook.app",
+      "buildNumber": "1.5",
+      "infoPlist": {
+        "NSLocationAlwaysUsageDescription": "The usage to track the user location from where he is signed in",
+        "NSCameraUsageDescription": "The usage to track the user location from where he is signed in"
+      }
+    },
+    "android": {
+      "package": "com.littlebookcompany.app",
+      "versionCode" : 2,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "71d5619b-f56b-49bc-a6c2-b3e976676c8e"
+      }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 31,
+            "targetSdkVersion": 31,
+            "buildToolsVersion": "31.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
+        }
+      ]
+    ]
+  }
+}  
