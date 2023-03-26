@@ -153,4 +153,21 @@ export default class AuthMiddleware {
             return json;
         }, {});
     }
+
+    static deactivateUser() {
+        return (dispatch) => {
+            return new Promise(async (resolve, reject) => {
+                let URL = `https://api.littlebookcompany.net/v1/api/deactivateUser`;
+                axios.put(URL)
+                    .then(function (response) {
+                        resolve(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error, 'error')
+                        reject(error)
+                    })
+
+            })
+        }
+    }
 }

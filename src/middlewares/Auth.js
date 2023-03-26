@@ -192,5 +192,4 @@ export default class AuthMiddleware {
             payload: decoded
         }
     }
-
 }

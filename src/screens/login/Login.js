@@ -8,6 +8,7 @@ import {
     SafeAreaView,
     TouchableOpacity,
     ActivityIndicator,
+    Alert
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useDispatch } from 'react-redux';
@@ -36,15 +37,44 @@ export default function Login({ navigation }) {
     const [errors, setErrors] = useState([]);
     const [serverError, setServerError] = useState([]);
     const [isLoad, setIsLoad] = useState(false);
+    const [isaccountDeactive, setIsAccountDeactive] = useState(false);
 
 
     const dispatch = useDispatch();
 
-    const renderServerError = () => {
-        if (serverError != null && serverError.length > 0) {
-            return <View>
-                <Text style={styles.RendererrorTxt}> Server Error </Text>
-            </View>
+
+    useEffect(() => {
+        return () => {
+            setIsAccountDeactive(false);
+        }
+    },[])
+    useEffect(() => {
+        if(serverError!==null && serverError.length > 0){
+            serverError.forEach((el) => {
+                if(el.msg == "User is deactivated"){
+                    setIsAccountDeactive(true)
+                }
+            })
+        }
+    },[serverError])
+    // const renderServerError = () => {
+    //     if (serverError != null && serverError.length > 0) {
+    //         return <View>
+    //             <Text style={styles.RendererrorTxt}> Server Error </Text>
+    //         </View>
+    //     }
+    // }
+    const renderValidationError = () => {
+        if (serverError.length > 0) {
+            return serverError.map((el) => {
+                return <View>
+                    <Text style={styles.RendererrorTxt}>
+                        { el.msg == "User is deactivated" ? (
+                            "Your account has been deactivated contact support"
+                        ): (el.msg)}
+                    </Text>
+                </View>
+            })
         }
     }
 
@@ -57,7 +87,7 @@ export default function Login({ navigation }) {
 
         dispatch(AuthMiddleware.doLogin(data))
             .then((user) => {
-                console.log(user);
+                console.log("MESS", user);
 
                 showToast('Login Successfully');
                 setIsLoad(false)
@@ -69,6 +99,7 @@ export default function Login({ navigation }) {
                 var validationError = {}
                 var serverError = []
                 if (err.hasOwnProperty('validation')) {
+                    console.log("HERE")
                     err.validation.map(obj => {
                         if (obj.hasOwnProperty('param')) {
                             validationError[obj["param"]] = obj["msg"]
@@ -79,7 +110,6 @@ export default function Login({ navigation }) {
                     setErrors(validationError);
                     setServerError(serverError);
                 }
-                console.log('In error', errors)
                 setIsLoad(false)
                 //showToast('Something went wrong');
             });
@@ -88,7 +118,16 @@ export default function Login({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-
+            {
+                isaccountDeactive && Alert.alert(
+                    'Contact Support',
+                    'Your account has been deactivated contact support littlebookcompanypk@gmail.com',
+                    [
+                        { text: 'Cancel', onPress: () => setIsAccountDeactive(false)},
+                    ],
+                    { cancelable: false }
+                )
+            }
             <View
                 style={{ flexDirection: 'row', justifyContent: 'flex-start', width: '100%', position: 'absolute', top: '5%' }}
             >
@@ -101,7 +140,7 @@ export default function Login({ navigation }) {
             </View>
 
             <Image source={logo} style={styles.logo} />
-            {renderServerError()}
+            {renderValidationError()}
             <TextInput
                 value={email}
                 style={styles.input}
@@ -123,11 +162,11 @@ export default function Login({ navigation }) {
                 />
                 <TouchableOpacity
                     onPress={() => setShowPsw(!showPsw)}
-                    style={{...styles.pass, justifyContent : 'center'}}
+                    style={{ ...styles.pass, justifyContent: 'center' }}
                 >
                     <Image
-                        source={ showPsw == true ? close : open }
-                        style={{ width: 16, height: 16, resizeMode : 'contain', alignSelf : 'center'}}
+                        source={showPsw == true ? close : open}
+                        style={{ width: 16, height: 16, resizeMode: 'contain', alignSelf: 'center' }}
                     />
                 </TouchableOpacity>
             </View>
@@ -185,12 +224,12 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         padding: 10,
     },
-    pass : {
-        width : 32,
-        height : 32,
-        position : 'absolute',
-        right : 25,
-        bottom : 10,
+    pass: {
+        width: 32,
+        height: 32,
+        position: 'absolute',
+        right: 25,
+        bottom: 10,
     },
     logo: {
         width: 200,

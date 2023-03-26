@@ -1,3 +1,4 @@
+import React, { useState, useRef, useEffect } from 'react';
 import {
     View,
     Text,
@@ -8,23 +9,14 @@ import {
     ScrollView,
     TouchableOpacity,
     ActivityIndicator,
-    Alert
+    Alert,
+    Button
 } from 'react-native';
 import { useFonts } from 'expo-font'
-import PhoneInput from "react-native-phone-number-input";
-import React, { useState, useRef, useEffect } from 'react';
 import window from '../../../utils/window';
 import colors from '../../../utils/colors';
-import logo from '../../assets/logo.png';
-import { Button } from 'react-native-paper';
-import google from '../../assets/google.png';
-import facebook from '../../assets/facebook.png';
 import backarrow from '../../assets/arrowBack.png'
-import open from "../../assets/eyeOpen.png"
-import close from "../../assets/eyeClose.png"
 import AuthMiddleware from '../../commonRedux/auth/middleware';
-import mailService from '../../middlewares/Auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 
 
@@ -36,6 +28,8 @@ export default function Profile({ navigation, route }) {
         OutfitRegular: require('../../../assets/Outfit/static/Outfit-Regular.ttf'),
     })
     const [isUser, SetIsUser] = useState(false)
+    const dispatch = useDispatch();
+    const [deactivated, setDeactivated] = useState(false);
 
     useEffect(() => {
         if (route.params.user !== null) {
@@ -43,6 +37,27 @@ export default function Profile({ navigation, route }) {
 
         }
     }, [])
+
+    useEffect(() => {
+        if(deactivated){
+            dispatch(AuthMiddleware.logout())
+            navigation.navigate('home')
+        }
+    },[deactivated])
+
+    const deactivateUser = () => {
+        dispatch(AuthMiddleware.deactivateUser("ww"))
+             .then(res => {
+                console.log("DDFG",res.data)
+                 if (res.data == "User deactivated") {
+                    console.log('HERE')
+                    setDeactivated(true);
+                 }
+             })
+             .catch(err => {
+                 console.log(err)
+             })
+    }
 
 
     return (
@@ -76,33 +91,43 @@ export default function Profile({ navigation, route }) {
             </View>
             <View style={{ marginTop: '10%', marginBottom: "10%" }}>
                 {
-                    isUser && <Text style={{...styles.label, fontFamily : 'OutfitSemiBold'}}>{route.params.user.Full_Name}</Text>
+                    isUser && <Text style={{ ...styles.label, fontFamily: 'OutfitSemiBold' }}>{route.params.user.Full_Name}</Text>
                 }
                 {
-                    !isUser && <Text style={{...styles.label, fontFamily : 'OutfitSemiBold'}}>Guest User</Text>
+                    !isUser && <Text style={{ ...styles.label, fontFamily: 'OutfitSemiBold' }}>Guest User</Text>
                 }
 
             </View>
 
             <View>
                 {
-                    isUser && <Text style={{...styles.label, color : "#a1a1a1"}}>{route.params.user.Email}</Text>
+                    isUser && <Text style={{ ...styles.label, color: "#a1a1a1" }}>{route.params.user.Email}</Text>
                 }
                 {
-                    !isUser && <Text style={{...styles.label, color : "#a1a1a1"}}>Guest User</Text>
+                    !isUser && <Text style={{ ...styles.label, color: "#a1a1a1" }}>Guest User</Text>
                 }
 
             </View>
             <View style={{ marginTop: 16, marginBottom: 24 }}>
                 {
-                    isUser && <Text style={{...styles.label, color : "#a1a1a1"}}>{route.params.user.Phone_Num || "No Contact Info"} </Text>
+                    isUser && <Text style={{ ...styles.label, color: "#a1a1a1" }}>{route.params.user.Phone_Num || "No Contact Info"} </Text>
                 }
                 {
-                    !isUser && <Text style={{...styles.label, color : "#a1a1a1"}}>Guest User</Text>
+                    !isUser && <Text style={{ ...styles.label, color: "#a1a1a1" }}>Guest User</Text>
                 }
-
             </View>
-
+            <Button
+                title="Press me"
+                onPress={() => Alert.alert(
+                    'Deactivate Account',
+                    'Are you sure you want to deactivate account?',
+                    [
+                        { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
+                        { text: 'YES', onPress: () => deactivateUser() },
+                    ],
+                    { cancelable: false }
+                )}
+            />
         </SafeAreaView>
     )
 }
