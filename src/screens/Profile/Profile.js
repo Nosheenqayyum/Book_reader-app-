@@ -39,24 +39,24 @@ export default function Profile({ navigation, route }) {
     }, [])
 
     useEffect(() => {
-        if(deactivated){
+        if (deactivated) {
             dispatch(AuthMiddleware.logout())
             navigation.navigate('home')
         }
-    },[deactivated])
+    }, [deactivated])
 
     const deactivateUser = () => {
         dispatch(AuthMiddleware.deactivateUser("ww"))
-             .then(res => {
-                console.log("DDFG",res.data)
-                 if (res.data == "User deactivated") {
+            .then(res => {
+                console.log("DDFG", res.data)
+                if (res.data == "User deactivated") {
                     console.log('HERE')
                     setDeactivated(true);
-                 }
-             })
-             .catch(err => {
-                 console.log(err)
-             })
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
 
@@ -117,7 +117,8 @@ export default function Profile({ navigation, route }) {
                 }
             </View>
             <Button
-                title="Press me"
+                title="DEACTIVATE ACCOUNT"
+                color='#a6bcc9'
                 onPress={() => Alert.alert(
                     'Deactivate Account',
                     'Are you sure you want to deactivate account?',
@@ -128,6 +129,12 @@ export default function Profile({ navigation, route }) {
                     { cancelable: false }
                 )}
             />
+            <View style={{ marginTop: 16, marginBottom: 24 }}>
+                <Text style={{ ...styles.label, color: "#a1a1a1", textAlign : 'center' }}>
+                    NOTE : We take your live location so that we can recommend you
+                    the books at the price according to your country
+                </Text>
+            </View>
         </SafeAreaView>
     )
 }

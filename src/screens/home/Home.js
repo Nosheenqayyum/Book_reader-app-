@@ -56,7 +56,7 @@ export default function Home({ navigation, route }) {
 
   const users = useSelector(getLoggedInUser);
 
- 
+
 
   const onChangeSearch = (value) => {
     setSearch(value)
@@ -186,6 +186,7 @@ export default function Home({ navigation, route }) {
     return list.map((item, idx) => {
       console.log('RESTRICTED', item.Restricted_Country);
       return !checkRestrictedCountry(item.Restricted_Country) && <TouchableOpacity
+        key={idx}
         activeOpacity={0.8}
         style={styles.item}
         onPress={() => onPress(item)}
