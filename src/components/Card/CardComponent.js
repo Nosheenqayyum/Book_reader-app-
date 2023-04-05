@@ -18,6 +18,9 @@ import { StripeProvider, CardField, useConfirmPayment, useStripe, CardForm } fro
 import OrdersMiddleware from '../../middlewares/Order';
 import { isLoaded, useFonts } from 'expo-font';
 import colors from '../../../utils/colors';
+import { currency } from 'expo-localization'
+import backarrow from '../../assets/arrowBack.png'
+
 
 
 function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, User, Description, Books, navigation }) {
@@ -162,13 +165,12 @@ function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, Us
         if (error) {
             console.log(`Error: ${JSON.stringify(error)}`);
             ToastAndroid.showWithGravityAndOffset('Oh sorry due to some issue we are unable to process your payment. Try again', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
-            
+
             setLoading(false)
         } else {
-            console.log('TOKEN', token)
 
             var stripeData = JSON.stringify({
-                "currency": Currency,
+                "currency": isPakistan ? 'pkr' : 'usd',
                 "amount": Amount,
                 "source": token.id,
                 "receipt_email": User.Email,
@@ -176,11 +178,10 @@ function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, Us
                 "books": Books
             })
 
-            console.log("Currency:", Currency);
-            console.log('STRIPE API DATA', stripeData);
 
-            var config = {
+            let config = {
                 method: 'post',
+                maxBodyLength: Infinity,
                 url: 'https://api.littlebookcompany.net/v1/api/stripe/charge',
                 headers: {
                     'Content-Type': 'application/json'
@@ -188,34 +189,51 @@ function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, Us
                 data: stripeData
             };
 
-            
-            const { error, data } = await axios(config)
 
-            console.log('SUCCESS', data)
-            if (data.message == 'charge posted successfully') {
-                var Order_ID = 'xxx-xxx-xxx-xxx'.replace(/[x]/g, (c) => {
-                    let dataTimeNow = new Date().getTime()
-                    var r = (dataTimeNow + Math.random() * 16) % 16 | 0;
-                    dataTimeNow = Math.floor(dataTimeNow / 16)
-                    return (c == "x" ? r : (r & 0x3 | 0x8)).toString(16)
-                })
+            try {
 
-                createOrder(Order_ID);
+                axios.request(config)
+                    .then((res) => {
+                        if (res.data.message == 'charge posted successfully') {
+                            var Order_ID = 'xxx-xxx-xxx-xxx'.replace(/[x]/g, (c) => {
+                                let dataTimeNow = new Date().getTime()
+                                var r = (dataTimeNow + Math.random() * 16) % 16 | 0;
+                                dataTimeNow = Math.floor(dataTimeNow / 16)
+                                return (c == "x" ? r : (r & 0x3 | 0x8)).toString(16)
+                            })
 
-                setLoading(false)
-            } else if (data.message !== 'charge posted successfully') {
-                console.log('ERROR PURCHASING BOOK:', error.response)
-                ToastAndroid.showWithGravityAndOffset('Oh sorry due to some issue we are unable to process your payment. Try again', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
-                
-                setLoading(false)
+                            createOrder(Order_ID);
+
+                            setLoading(false)
+                        } else if (res.data.message !== 'charge posted successfully') {
+                            ToastAndroid.showWithGravityAndOffset('Oh sorry due to some issue we are unable to process your payment. Try again', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+
+                            setLoading(false)
+                        }
+                    })
+                    .catch((error) => {
+                        ToastAndroid.showWithGravityAndOffset('Oh sorry due to some issue we are unable to process your payment. Try again', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+                        setLoading(false)
+                    });
+            } catch (error) {
+                console.warn("PAYMENT ERR", error)
             }
 
-            
         }
     }
 
     return (
         <View style={styles.container}>
+            <View
+                style={{ flexDirection: 'row', justifyContent: 'flex-start', width: '100%', position: 'absolute', top: '5%' }}
+            >
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.backBox}
+                >
+                    <Image source={backarrow} style={styles.BackIcon} />
+                </TouchableOpacity>
+            </View>
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                 <Image
                     style={styles.stripeLogo}
@@ -269,6 +287,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         height: 50,
         padding: 10
+    },
+    BackIcon: {
+        width: 25,
+        height: 25,
+        resizeMode: 'contain'
     },
     card: {
         backgroundColor: '#efefefef',

@@ -1,9 +1,8 @@
 {
   "expo": {
-    "name": "Little Book",
-    "displayName": "Little Book",
+    "name": "Little Book App",
     "slug": "reader",
-    "version": "2.2.4",
+    "version": "2.2.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -20,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.littlebook.app",
+      "bundleIdentifier": "com.littlebooknewapp.app",
       "buildNumber": "1.5",
       "infoPlist": {
         "NSLocationAlwaysUsageDescription": "The usage to track the user location from where he is signed in",
@@ -29,7 +28,7 @@
     },
     "android": {
       "package": "com.littlebookcompany.app",
-      "versionCode" : 2,
+      "versionCode" : 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"

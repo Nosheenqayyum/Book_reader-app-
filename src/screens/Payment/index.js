@@ -41,6 +41,7 @@ export default ({ navigation, route }) => {
             .then(response => response.json())
             .then((result) => {
                 const { results } = result
+                console.log(results)
                 let foundCountry = results[0].address_components.find(el => {
                     if (el.short_name === "PK") {
                         return true
@@ -70,6 +71,7 @@ export default ({ navigation, route }) => {
             console.log("Country Code: ",)
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
+                console.log("RETURN")
                 return;
             }
             let location = await Location.getCurrentPositionAsync({});
@@ -100,6 +102,7 @@ export default ({ navigation, route }) => {
     return (
         <StripeProvider
             publishableKey='pk_live_51JZYy3HlUXQRtIaS5VkbuRxk5qaDdxOmFef5Ij6bmkwxFTZxow8ucnWrPOgNVBhuAnOC6Ab4qy2IskBniMUzUXDs00qLP6P4Ld'
+            // publishableKey='pk_test_51JZYy3HlUXQRtIaSmoUf7WbsQBsSm9ScF17obbcxn7vXYW9VMEMKk8TepMlZsmURqAb3JX6wZol29BdQr7PUb5Ex00KOs2PRwF'
         >
             <CardComponent
                 Currency={currency}
