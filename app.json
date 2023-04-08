@@ -22,8 +22,7 @@
       "bundleIdentifier": "com.littlebooknewapp.app",
       "buildNumber": "1.5",
       "infoPlist": {
-        "NSLocationAlwaysUsageDescription": "The usage to track the user location from where he is signed in",
-        "NSCameraUsageDescription": "The usage to track the user location from where he is signed in"
+        "NSLocationAlwaysUsageDescription": "In this app, we having different pricing and currency for different countries, So we are getting user location to show the price and currency accordingly. Example if you select pakistan it will show you price in PKR"
       }
     },
     "android": {

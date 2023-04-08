@@ -84,7 +84,7 @@ function Inner({ navigation, title, url, type, book }) {
                     height={height * 0.75}
                     renderOpeningBookComponent={LoadingComponent}
                     fileSystem={useFileSystem}
-                    onDoublePress={() => Alert.alert('Happy reading of the book')}
+                    // onDoublePress={() => Alert.alert('Happy reading of the book')}
                     onDisplayError={() => {
                         Alert.alert('Error loading the book')
                     }}

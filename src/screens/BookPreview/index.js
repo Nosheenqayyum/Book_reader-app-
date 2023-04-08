@@ -7,8 +7,12 @@ import {
     ScrollView,
     SafeAreaView,
     TouchableOpacity,
+    ToastAndroid,
+    Platform,
+    Alert
 } from 'react-native'
 import { useFonts } from 'expo-font';
+import { useToast } from 'react-native-paper-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLoggedInUser } from '../../commonRedux/selectors'
 import { addToCart } from '../../commonRedux/cart/cartActions'
@@ -31,6 +35,7 @@ const Button = ({ label, color, isCart, onPress, textColor }) => {
 }
 
 export default ({ navigation, route }) => {
+    const toast = useToast();
     const [fontsLoaded] = useFonts({
         Outfit: require('../../../assets/Outfit/static/Outfit-Black.ttf'),
         OutfitThin: require('../../../assets/Outfit/static/Outfit-Thin.ttf'),
@@ -108,6 +113,7 @@ export default ({ navigation, route }) => {
             navigation.navigate(`login`)
         } else {
             dispatch(addToCart(item))
+            toast.show({ message: 'Item added in cart', type: 'success', duration: 2000 })
         }
     }
 
@@ -115,7 +121,7 @@ export default ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
             <View style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
                 <View style={{
-                    flexDirection: 'row', display: 'flex', justifyContent: 'space-between', width: window.width * 0.9, marginTop : 16
+                    flexDirection: 'row', display: 'flex', justifyContent: 'space-between', width: window.width * 0.9, marginTop: 16
                 }}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}

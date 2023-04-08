@@ -116,25 +116,23 @@ export default function Profile({ navigation, route }) {
                     !isUser && <Text style={{ ...styles.label, color: "#a1a1a1" }}>Guest User</Text>
                 }
             </View>
-            <Button
-                title="DEACTIVATE ACCOUNT"
-                color='#a6bcc9'
-                onPress={() => Alert.alert(
-                    'Deactivate Account',
-                    'Are you sure you want to deactivate account?',
-                    [
-                        { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
-                        { text: 'YES', onPress: () => deactivateUser() },
-                    ],
-                    { cancelable: false }
-                )}
-            />
-            <View style={{ marginTop: 16, marginBottom: 24 }}>
-                <Text style={{ ...styles.label, color: "#a1a1a1", textAlign : 'center' }}>
+            <View style={{ marginTop: 16, marginBottom: 120, padding : 24 }}>
+                <Text style={{ textAlign: 'center' }}>
                     NOTE : We take your live location so that we can recommend you
                     the books at the price according to your country
                 </Text>
             </View>
+            <TouchableOpacity style={styles.deleteAccount_Btn} onPress={() => Alert.alert(
+                'Delete Account',
+                'Are you sure you want to delete account permanently?',
+                [
+                    { text: 'Cancel', onPress: () => console.log('Cancel Pressed!') },
+                    { text: 'YES', onPress: () => deactivateUser() },
+                ],
+                { cancelable: false }
+            )}>
+                <Text style={styles.deleteText}>DELETE ACCOUNT PERMANENTLY</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
@@ -165,6 +163,13 @@ const styles = StyleSheet.create({
     },
     PageContainer: {
         textAlign: 'center',
+    },
+    deleteText : {
+        color : 'red',
+    }, 
+    deleteAccount_Btn : {
+        position : 'absolute',
+        bottom : 48
     },
     BackIcon: {
         width: 25,

@@ -10,6 +10,7 @@ import {
     ToastAndroid
 } from 'react-native';
 import { useFonts } from 'expo-font';
+import {useToast} from 'react-native-paper-toast'
 import * as Location from 'expo-location';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,6 +26,7 @@ import Rectangle from '../../assets/Rectangle.png';
 import deleteIcon from '../../assets/delete.png';
 
 export default ({ navigation }) => {
+    const toast = useToast();
     const [isDrawer, setDrawer] = useState(false);
     const [isPakistan, setIsPakistan] = useState(true);
     const [totalCart, setTotalCart] = useState(0);
@@ -110,14 +112,15 @@ export default ({ navigation }) => {
 
     const proceedToCheckOut = () => {
         if (cart.length == 0) {
-            ToastAndroid.showWithGravityAndOffset('Add items in cart to proceed', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+            // ToastAndroid.showWithGravityAndOffset('Add items in cart to proceed', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+            toast.show({ message: 'Add items in cart to proceed', type: 'error', duration: 2000 })
         } else {
             if (users?.Full_Name) {
                 navigation.navigate(`payment`, {
                     items: cart,
                 })
             } else {
-                ToastAndroid.showWithGravityAndOffset('Login to proceed', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+                toast.show({ message: 'Login to proceed', type: 'error', duration: 2000 })
             }
         }
     }

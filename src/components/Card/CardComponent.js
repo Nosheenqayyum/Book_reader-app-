@@ -12,6 +12,7 @@ import {
     Image
 } from 'react-native'
 import { useDispatch } from 'react-redux'
+import {useToast} from 'react-native-paper-toast'
 import axios from 'axios'
 import { emptyCart } from '../../commonRedux/cart/cartActions'
 import { StripeProvider, CardField, useConfirmPayment, useStripe, CardForm } from '@stripe/stripe-react-native'
@@ -24,6 +25,7 @@ import backarrow from '../../assets/arrowBack.png'
 
 
 function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, User, Description, Books, navigation }) {
+    const toast = useToast();
     const [fontsLoaded] = useFonts({
         Outfit: require('../../../assets/Outfit/static/Outfit-Black.ttf'),
         OutfitThin: require('../../../assets/Outfit/static/Outfit-Thin.ttf'),
@@ -122,7 +124,8 @@ function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, Us
                     'books': Books
                 })
                     .then(res => {
-                        ToastAndroid.showWithGravityAndOffset('Transaction Successful', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+                        
+                        toast.show({ message: 'Transaction Successful', type: 'success', duration: 2000 })
                         dispatch(emptyCart())
 
                         navigation.navigate('library')
@@ -146,12 +149,13 @@ function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, Us
         setLoading(true)
 
         if (cardDetails === null) {
-            ToastAndroid.showWithGravityAndOffset('Please enter the complete card details', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+            toast.show({ message: 'Please enter the complete card details', type: 'error', duration: 2000 })
             setLoading(false)
             return
         }
         if (cardDetails.complete === false) {
-            ToastAndroid.showWithGravityAndOffset('Please enter the complete card details', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+            toast.show({ message: 'Please enter the complete card details', type: 'error', duration: 2000 })
+
             setLoading(false)
             return
         }
@@ -164,7 +168,7 @@ function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, Us
 
         if (error) {
             console.log(`Error: ${JSON.stringify(error)}`);
-            ToastAndroid.showWithGravityAndOffset('Oh sorry due to some issue we are unable to process your payment. Try again', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+            toast.show({ message: 'Oh sorry due to some issue we are unable to process your payment. Try again', type: 'error', duration: 2000 })
 
             setLoading(false)
         } else {
@@ -206,13 +210,13 @@ function CardComponent({ Currency, isPakistan, Amount, Amount_without_stripe, Us
 
                             setLoading(false)
                         } else if (res.data.message !== 'charge posted successfully') {
-                            ToastAndroid.showWithGravityAndOffset('Oh sorry due to some issue we are unable to process your payment. Try again', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+                            toast.show({ message: 'Oh sorry due to some issue we are unable to process your payment. Try again', type: 'error', duration: 2000 })
 
                             setLoading(false)
                         }
                     })
                     .catch((error) => {
-                        ToastAndroid.showWithGravityAndOffset('Oh sorry due to some issue we are unable to process your payment. Try again', ToastAndroid.SHORT, ToastAndroid.TOP, 0, 300)
+                        toast.show({ message: 'Oh sorry due to some issue we are unable to process your payment. Try again', type: 'error', duration: 2000 })
                         setLoading(false)
                     });
             } catch (error) {
