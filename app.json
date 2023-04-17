@@ -2,7 +2,7 @@
   "expo": {
     "name": "Little Book App",
     "slug": "reader",
-    "version": "2.2.6",
+    "version": "2.3.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -19,15 +19,17 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.littlebooknewapp.app",
-      "buildNumber": "1.5",
+      "bundleIdentifier": "com.littlebooknewappioss.app",
+      "buildNumber": "1.9",
       "infoPlist": {
-        "NSLocationAlwaysUsageDescription": "In this app, we having different pricing and currency for different countries, So we are getting user location to show the price and currency accordingly. Example if you select pakistan it will show you price in PKR"
+        "NSLocationWhenInUseUsageDescription" : "In this app, we having different pricing and currency for different countries, So we are getting user location to show the price and currency accordingly. Example if you select pakistan it will show you price in PKR",
+        "NSLocationAlwaysUsageDescription": "In this app, we having different pricing and currency for different countries, So we are getting user location to show the price and currency accordingly. Example if you select pakistan it will show you price in PKR",
+        "NSCameraUsageDescription": "This app does not use the camera feature and therefore does not require camera access."
       }
     },
     "android": {
       "package": "com.littlebookcompany.app",
-      "versionCode" : 3,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
@@ -35,11 +37,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "71d5619b-f56b-49bc-a6c2-b3e976676c8e"
-      }
     },
     "plugins": [
       [
@@ -55,6 +52,11 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "59ecbc43-bf9d-468b-b943-122f753d7826"
+      }
+    }
   }
-}  
+}

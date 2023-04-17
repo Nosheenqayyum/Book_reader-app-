@@ -1,33 +1,33 @@
 {
   "cli": {
-    "version": ">= 2.8.0"
+    "version": ">= 3.9.0"
   },
   "build": {
     "development": {
       "developmentClient": true,
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m1-medium"
+        "resourceClass": "m-medium"
       }
     },
     "preview": {
       "distribution": "internal",
       "ios": {
-        "resourceClass": "m1-medium"
+        "resourceClass": "m-medium"
       }
     },
     "production": {
       "ios": {
-        "resourceClass": "m1-medium"
+        "resourceClass": "m-medium"
       }
     }
   },
-  "submit" : {
-    "production" : {
+  "submit": {
+    "production": {
       "ios" : {
-        "appleId": "ahmedgraf@gmail.com",
-        "ascAppId": "6446981551",
-        "appleTeamId": "4PAQ9GUW62"
+        "appleId" : "ahmedgraf@gmail.com",
+        "ascAppId" : "6447806899",
+        "appleTeamId" : "4PAQ9GUW62"
       }
     }
   }
