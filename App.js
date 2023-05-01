@@ -22,6 +22,9 @@ import MyBooks from './src/screens/MyBooks';
 import Cart from './src/screens/Cart';
 import Payment from './src/screens/Payment';
 import Profile from './src/screens/Profile/Profile';
+import { ForgotPassword } from './src/screens/ForgotPassword/ForgotPassword';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +59,11 @@ export default function App() {
                     name='login'
                     component={Login}
                   />
+                    <Stack.Screen
+                    name='ForgotPassword'
+                    component={ForgotPassword}
+                  />
+                  
                   <Stack.Screen
                     name='register'
                     component={Register}
