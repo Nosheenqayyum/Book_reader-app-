@@ -144,7 +144,6 @@ export default function Login({ navigation }) {
 
       <Image source={logo} style={styles.logo} />
       {renderValidationError()}
-      <Input msg="Hello World" type="type string" />
       <TextInput
         value={email}
         style={styles.input}
