@@ -125,91 +125,107 @@ export default function Login({ navigation }) {
           [{ text: "Cancel", onPress: () => setIsAccountDeactive(false) }],
           { cancelable: false }
         )}
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
-          justifyContent: "flex-start",
-          width: "100%",
-          position: "absolute",
-          top: "5%",
+          // justifyContent: "flex-start",
+          width: "90%",
+          paddingHorizontal:10
+          // position: "absolute",
+          // // top: "5%",
         }}
-      >
-        <TouchableOpacity
+      > */}
+      {/* <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.backBox}
         >
           <Image source={backarrow} style={styles.BackIcon} />
-        </TouchableOpacity>
-      </View>
+        </TouchableOpacity> */}
+      {/* </View> */}
 
-      <Image source={logo} style={styles.logo} />
-      {renderValidationError()}
-      <TextInput
-        value={email}
-        style={styles.input}
-        placeholder="Email Address"
-        onChangeText={(e) => setEmail(e)}
-      />
-      {errors.email && <Text style={styles.errorTxt}>{errors.email}</Text>}
-      <View style={{ position: "relative" }}>
-        <TextInput
-          value={psw}
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry={showPsw == true ? false : true}
-          onChangeText={(e) => setPsw(e)}
-        />
-        <TouchableOpacity
-          onPress={() => setShowPsw(!showPsw)}
-          style={{ ...styles.pass, justifyContent: "center" }}
-        >
-          <Image
-            source={showPsw == true ? close : open}
-            style={{
-              width: 16,
-              height: 16,
-              resizeMode: "contain",
-              alignSelf: "center",
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-      {errors.password && (
-        <Text style={styles.errorTxt}>{errors.password}</Text>
-      )}
-      <View style={styles.forgetTxtWrapper}>
-        <TouchableOpacity style={{marginTop:2}} onPress={() => navigation.navigate('ForgotPassword')}>
-          {/* <Text style={styles.accountTxt} onPress={() => navigation.navigate('forgetpassword')}>Forget your Password?</Text> */}
-        <Text style={styles.accountTxt}>Forgot password?</Text>
-        </TouchableOpacity>
-      </View>
-
-      {isLoad && <ActivityIndicator size="large" color={colors.primary} />}
-
-      <Button
-        mode="contained"
-        uppercase={false}
-        style={styles.button}
-        //onPress={() => navigation.navigate('home')}
-        onPress={() => login()}
-      >
-        <Text style={styles.loginButtonText}>Login</Text>
-      </Button>
-      <Text style={styles.accountTxt}>
-        Don't have an Account?
-        <Text
-          style={styles.boldTxt}
-          onPress={() => navigation.navigate("register")}
-        >
-          {" "}
-          Create Account
+      {/* <Image source={logo} style={styles.logo} /> */}
+      <View style={styles.TextBox}>
+        <Text style={{ fontSize: 30, fontWeight: "bold" }}>Let's</Text>
+        <Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: 8 }}>
+          Get <Text style={{ color: "#517A95", fontSize: 30 }}>Started!</Text>
         </Text>
-      </Text>
-      {/* <View style={styles.contiueAsGuest}>
-                <Text style={{ ...styles.accountTxt, color: '#a1a1a1' }}>
-                    <Text style={styles.boldTxt} onPress={() => navigation.navigate('home')}> Continue as a guest</Text>
-                </Text>
-            </View> */}
+        <Text style={{ fontSize: 17, color: "#474747", marginBottom: 15 }}>
+          Login to your account and start reading your favourite books!{" "}
+        </Text>
+      </View>
+
+      {renderValidationError()}
+      <View style={{ justifyContent: "flex-start", bottom: "17%" }}>
+        <TextInput
+          value={email}
+          style={styles.input}
+          placeholder="Enter Email/Phone No"
+          onChangeText={(e) => setEmail(e)}
+          placeholderTextColor={"#AFC2CF"}
+        />
+        {errors.email && <Text style={styles.errorTxt}>{errors.email}</Text>}
+        <View style={{ position: "relative" }}>
+          <TextInput
+            value={psw}
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor={"#AFC2CF"}
+            secureTextEntry={showPsw == true ? false : true}
+            onChangeText={(e) => setPsw(e)}
+          />
+          <TouchableOpacity
+            onPress={() => setShowPsw(!showPsw)}
+            style={{ ...styles.pass, justifyContent: "center" }}
+          >
+            <Image
+              source={showPsw == true ? close : open}
+              style={{
+                // right:15,
+                width: 16,
+                height: 16,
+                resizeMode: "contain",
+                alignSelf: "center",
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        {errors.password && (
+          <Text style={styles.errorTxt}>{errors.password}</Text>
+        )}
+        <View style={styles.forgetTxtWrapper}>
+          <TouchableOpacity
+            style={{ marginTop: 2 }}
+            onPress={() => navigation.navigate("ForgotPassword")}
+          >
+            {/* <Text style={styles.accountTxt} onPress={() => navigation.navigate('forgetpassword')}>Forget your Password?</Text> */}
+            <Text style={styles.accountTxt}>Forgot password?</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {isLoad && <ActivityIndicator size="large" color={colors.primary} />}
+      <View>
+        <Button
+          mode="contained"
+          uppercase={false}
+          style={styles.button}
+          //onPress={() => navigation.navigate('home')}
+          onPress={() => login()}
+        >
+          <Text style={styles.loginButtonText}>Login</Text>
+        </Button>
+        <View style={{ bottom: 15 }}>
+          <Text style={styles.accountTxt}>
+            Don't have an Account?
+            <Text
+              style={styles.boldTxt}
+              onPress={() => navigation.navigate("register")}
+            >
+              {" "}
+              Create Account
+            </Text>
+          </Text>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -217,9 +233,11 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
     backgroundColor: "white",
+    paddingHorizontal: 20,
+    justifyContent: "space-between",
   },
   BackIcon: {
     width: 25,
@@ -242,16 +260,30 @@ const styles = StyleSheet.create({
     height: 150,
     resizeMode: "contain",
   },
+  TextBox: {
+    marginTop: "17%",
+    width: "90%",
+    paddingHorizontal: 4,
+    alignSelf: "flex-start",
+  },
   button: {
-    width: 250,
+    width: 350,
+    height: 56,
     marginBottom: 30,
-    borderRadius: 100,
     paddingVertical: 5,
-    backgroundColor: colors.primary,
+    backgroundColor: "#517A95",
     fontFamily: "Outfit",
+    alignSelf: "center",
+    borderRadius: 12,
   },
   loginButtonText: {
     fontFamily: "OutfitSemiBold",
+    color: "white",
+    alignSelf: "center",
+    justifyContent: "center",
+    top: 10,
+    fontWeight: "bold",
+    fontSize: 18,
   },
   icon: {
     width: 30,
@@ -273,15 +305,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   input: {
-    height: 50,
+    height: 55,
     marginTop: 20,
     borderWidth: 1,
     paddingLeft: 20,
-    borderRadius: 30,
+    borderRadius: 10,
     borderColor: "gainsboro",
     backgroundColor: "white",
     width: window.width * 0.9,
     fontFamily: "OutfitRegular",
+    width: "95%",
+    alignSelf: "center",
   },
   forgetTxtWrapper: {
     marginVertical: 10,
@@ -291,11 +325,11 @@ const styles = StyleSheet.create({
     fontFamily: "OutfitSemiBold",
     alignSelf: "flex-end",
     width: "35%",
-
   },
   accountTxt: {
     fontSize: 13,
-    color:'#000000'  
+    color: "#000000",
+    alignSelf: "center",
   },
   errorTxt: {
     fontSize: 13,
