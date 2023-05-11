@@ -29,51 +29,49 @@ export const ForgotPassword = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.container}>
-        <View style={styles.TestView}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-start",
-              width: "100%",
-              position: "absolute",
-              top: "5%",
-            }}
+        {/* <View style={styles.TestView}> */}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            width: "100%",
+            position: "absolute",
+            top: "5%",
+            left: "7%",
+            marginTop: 20,
+            marginBottom: 5,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backBox}
           >
-            <TouchableOpacity
-              onPress={() => navigation.goBack()}
-              style={styles.backBox}
-            >
-              <Image source={backarrow} style={styles.BackIcon} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.TextBox}>
-            <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 5 }}>
-              Opss!
-            </Text>
-            <Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: 8 }}>
-              Forget{" "}
-              <Text style={{ color: "#517A95", fontSize: 30 }}>Password?</Text>
-            </Text>
-            <Text style={{ fontSize: 17, color: "#474747", marginBottom: 15 }}>
-              No need to worry about! Just change your password now!{" "}
-            </Text>
-          </View>
-          {/* <View style={styles.fieldContainer}> */}
-          {/* <View style={styles.Flagcontainer}> */}
-          {/* <MaterialIcons size='20' color='black' name="smartphone"
-              /> */}
-          <PhoneInput
-            defaultCode="PK"
-            value={mobile}
-            onChangePhoneNumber={handleOnChangePhoneNumber}
-            containerStyle={styles.inputContainer}
-            textInputStyle={styles.input}
-            flagStyle={styles.flag}
-            textProps={{ placeholder: "Enter phone number" }}
-          />
-          {/* </View> */}
-          {/* </View> */}
+            <Image source={backarrow} style={styles.BackIcon} />
+          </TouchableOpacity>
         </View>
+        <View style={styles.TextBox}>
+          <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 45 }}>
+            Opss!
+          </Text>
+          <Text style={{ fontSize: 30, fontWeight: "bold", marginBottom: 8 }}>
+            Forget{" "}
+            <Text style={{ color: "#517A95", fontSize: 30 }}>Password?</Text>
+          </Text>
+          <Text style={{ fontSize: 17, color: "#474747", marginBottom: 15 }}>
+            No need to worry about! Just change your password now!{" "}
+          </Text>
+        </View>
+
+        <PhoneInput
+          defaultCode="PK"
+          value={mobile}
+          onChangePhoneNumber={handleOnChangePhoneNumber}
+          containerStyle={styles.inputContainer}
+          textInputStyle={styles.input}
+          flagStyle={styles.flag}
+          textProps={{ placeholder: "Enter phone number" }}
+        />
+
         <TextInput
           value={email}
           style={styles.txtinput}
@@ -125,8 +123,8 @@ const styles = StyleSheet.create({
   TextBox: {
     marginTop: "20%",
     width: "90%",
-    paddingHorizontal: 4,
-    alignSelf: "flex-start",
+    paddingHorizontal: 8,
+    alignSelf: "center",
     marginBottom: 35,
   },
   Textcontainer: {
@@ -145,8 +143,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: "white",
     fontFamily: "OutfitRegular",
-    height:55
-  }, 
+    height: 55,
+  },
 
   inputContainer: {
     flexDirection: "row-reverse",
@@ -170,11 +168,12 @@ const styles = StyleSheet.create({
   },
   backBox: {
     padding: 5,
+    alignSelf: "center",
   },
   input: {
     backgroundColor: "white",
     fontFamily: "OutfitRegular",
-    top:1,
+    top: 1,
   },
   btn: {
     width: "90%",

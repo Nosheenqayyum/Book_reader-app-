@@ -261,13 +261,13 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   TextBox: {
-    marginTop: "17%",
+    marginTop: "20%",
     width: "90%",
     paddingHorizontal: 4,
     alignSelf: "flex-start",
   },
   button: {
-    width: 350,
+    width: "95%",
     height: 56,
     marginBottom: 30,
     paddingVertical: 5,
@@ -275,6 +275,7 @@ const styles = StyleSheet.create({
     fontFamily: "Outfit",
     alignSelf: "center",
     borderRadius: 12,
+   
   },
   loginButtonText: {
     fontFamily: "OutfitSemiBold",
@@ -284,6 +285,7 @@ const styles = StyleSheet.create({
     top: 10,
     fontWeight: "bold",
     fontSize: 18,
+    
   },
   icon: {
     width: 30,
