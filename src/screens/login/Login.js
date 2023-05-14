@@ -203,6 +203,23 @@ export default function Login({ navigation }) {
         </View>
       </View>
       {isLoad && <ActivityIndicator size="large" color={colors.primary} />}
+      
+      
+        {/* <Button
+          mode="contained"
+          uppercase={false}
+          style={styles.button}
+          //onPress={() => navigation.navigate('home')}
+          onPress={() => navigation.navigate("ResetPassword")}
+        >
+          <Text style={styles.loginButtonText}>ResetPassword</Text>
+        </Button> */}
+    
+      
+      
+      
+      
+      
       <View>
         <Button
           mode="contained"

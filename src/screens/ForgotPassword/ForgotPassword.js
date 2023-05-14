@@ -19,6 +19,7 @@ export const ForgotPassword = ({ navigation }) => {
   const [errors, setErrors] = useState([]);
   const [mob, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  
 
   function handleOnChangePhoneNumber(number) {
     setMobile(number);

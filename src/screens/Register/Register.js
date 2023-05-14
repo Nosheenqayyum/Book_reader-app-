@@ -38,8 +38,8 @@ export default function Register({ navigation }) {
   const [psw2, setPsw2] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMbl] = useState("");
-  const [mob, setMobile] = useState("");
+  const [mobile,setMobile] = useState("");
+  // const [mob, setMobile] = useState("");
   const [showPsw, setShowPsw] = useState(false);
   const [showConfirmPsw, setShowConfirmPsw] = useState(false);
   const phoneInput = useRef("");
@@ -74,10 +74,13 @@ export default function Register({ navigation }) {
       Country: country,
       To_Number: mobile,
     };
+    console.log("above",data);
+
 
     dispatch(AuthMiddleware.checkRegister(data))
       .then((user) => {
-        console.log(user);
+        console.log("AbC",data);
+
         setIsLoad(false);
         navigation.navigate(`otpscreen`, { data: data, response: user });
       })
@@ -100,12 +103,12 @@ export default function Register({ navigation }) {
       });
   };
 
-  function handleOnChangePhoneNumber(number) {
-    setMobile(number);
+  const handleOnChangePhoneNumber=(mobile) => {
+    setMobile(mobile);
   }
-  var data = {
-    To_Number: mobile,
-  };
+  // var data = {
+  //   To_Number: mobile,
+  // };
   return (
 
     <View style={styles.container}>
@@ -193,7 +196,7 @@ export default function Register({ navigation }) {
         <PhoneInput
           defaultCode="PK"
           value={mobile}
-          onChangePhoneNumber={handleOnChangePhoneNumber}
+          onChangeText={handleOnChangePhoneNumber}
           containerStyle={styles.inputContainer}
           textInputStyle={styles.in}
           flagStyle={styles.flag}
@@ -314,7 +317,7 @@ export default function Register({ navigation }) {
             uppercase={false}
             style={styles.btn}
             //onPress={() => navigation.navigate('home')}
-            onPress={() => login()}
+            onPress={() => register()}
           >
             <Text style={styles.loginButtonText}>Create Account</Text>
           </Button>

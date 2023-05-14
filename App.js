@@ -23,7 +23,7 @@ import Cart from './src/screens/Cart';
 import Payment from './src/screens/Payment';
 import Profile from './src/screens/Profile/Profile';
 import { ForgotPassword } from './src/screens/ForgotPassword/ForgotPassword';
-
+import { ResetPassword } from './src/screens/ResetPassword/ResetPassword';
 
 
 const Stack = createNativeStackNavigator();
@@ -95,6 +95,10 @@ export default function App() {
                   <Stack.Screen
                     name="profile"
                     component={Profile}
+                  />
+                    <Stack.Screen
+                    name="ResetPassword"
+                    component={ResetPassword}
                   />
                 </Stack.Navigator>
               </NavigationContainer>
