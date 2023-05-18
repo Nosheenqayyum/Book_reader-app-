@@ -166,9 +166,9 @@ export default function OtpScreen({ navigation, route }) {
           <Text style={styles.boldTxt}> Resend</Text>
         </View>
       </View>
-      <Button onPress={toggleModal}>
+      {/* <Button onPress={toggleModal}>
         <Text>Modal</Text>
-      </Button>
+      </Button> */}
 
       <View style={{ flex: 1, alignItems: "center" }}>
         <TouchableOpacity

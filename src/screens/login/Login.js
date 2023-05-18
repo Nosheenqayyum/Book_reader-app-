@@ -208,7 +208,7 @@ export default function Login({ navigation }) {
 
 
       
-        <TouchableOpacity
+        {/* <TouchableOpacity
           // mode="contained"
           // uppercase={false}
           style={styles.button}
@@ -216,7 +216,7 @@ export default function Login({ navigation }) {
           onPress={() => navigation.navigate("OtpScreen")}
         >
           <Text style={styles.loginButtonText}>OtpScreen</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
     
       
       
