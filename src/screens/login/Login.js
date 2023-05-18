@@ -205,15 +205,18 @@ export default function Login({ navigation }) {
       {isLoad && <ActivityIndicator size="large" color={colors.primary} />}
       
       
-        {/* <Button
-          mode="contained"
-          uppercase={false}
+
+
+      
+        <TouchableOpacity
+          // mode="contained"
+          // uppercase={false}
           style={styles.button}
           //onPress={() => navigation.navigate('home')}
-          onPress={() => navigation.navigate("ResetPassword")}
+          onPress={() => navigation.navigate("OtpScreen")}
         >
-          <Text style={styles.loginButtonText}>ResetPassword</Text>
-        </Button> */}
+          <Text style={styles.loginButtonText}>OtpScreen</Text>
+        </TouchableOpacity>
     
       
       

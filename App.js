@@ -69,7 +69,7 @@ export default function App() {
                     component={Register}
                   />
                   <Stack.Screen
-                    name="otpscreen"
+                    name="OtpScreen"
                     component={OtpScreen}
                   />
                   <Stack.Screen

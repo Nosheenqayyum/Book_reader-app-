@@ -7,9 +7,11 @@ import {
   TextInput,
   Button,
   SafeAreaView,
+  
 } from "react-native";
 import React, { useState } from "react";
 import backarrow from "../../assets/arrowBack.png";
+import close from "../../assets/eyeClose.png";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import open from "../../assets/eyeOpen.png";
 
@@ -22,6 +24,7 @@ export const ResetPassword = ({ navigation }) => {
       const [isLoad, setIsLoad] = useState(false);
   return (
     <SafeAreaView style={styles.mainContainer}>
+     
       <View style={styles.container}>
         {/* <View style={styles.TestView}> */}
         <View
@@ -51,7 +54,7 @@ export const ResetPassword = ({ navigation }) => {
             Your{" "}
             <Text style={{ color: "#517A95", fontSize: 30 }}>Password!</Text>
           </Text>
-          <Text style={{ fontSize: 17, color: "#474747", marginBottom: 15 }}>
+          <Text style={{ fontSize: 17, color: "#474747", marginBottom: 10 }}>
             No need to worry about! Just change your password now!{" "}
           </Text>
         </View>
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: "rgba(81, 122, 149, 1)",
-    marginTop: 8,
+    
     padding: 15,
     // width: "86%",
     borderRadius: 12,
