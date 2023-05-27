@@ -14,6 +14,9 @@ import backarrow from "../../assets/arrowBack.png";
 import close from "../../assets/eyeClose.png";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import open from "../../assets/eyeOpen.png";
+import Svg, { SvgXml } from "react-native-svg";
+import { lockPassword } from "../../assets/svg/modalSvg";
+
 
 export const ResetPassword = ({ navigation }) => {
       const [psw, setPsw] = useState("");
@@ -59,6 +62,15 @@ export const ResetPassword = ({ navigation }) => {
           </Text>
         </View>
         <View style={{ position: "relative", width:"90%",}}>
+        <SvgXml
+                xml={lockPassword}
+                style={{
+                  position: "absolute",
+                  top: "20%",
+                  zIndex: 10,
+                  left: "5%",
+                }}
+              />
           <TextInput
             value={psw}
             style={styles.input}
@@ -92,6 +104,15 @@ export const ResetPassword = ({ navigation }) => {
           <Text style={styles.errorTxt}>{errors.Password}</Text>
         )}
         <View style={{ position: "relative", width:"90%",bottom:5 }}>
+        <SvgXml
+                xml={lockPassword}
+                style={{
+                  position: "absolute",
+                  top: "20%",
+                  zIndex: 10,
+                  left: "5%",
+                }}
+              />
           <TextInput
             value={psw2}
             style={styles.input}
@@ -181,8 +202,9 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: "rgba(81, 122, 149, 1)",
-    
-    padding: 15,
+    paddingHorizontal: 20,
+    paddingLeft: 60,
+    // padding: 15,
     // width: "86%",
     borderRadius: 12,
     backgroundColor: "white",

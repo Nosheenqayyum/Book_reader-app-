@@ -26,6 +26,10 @@ import mailService from "../../middlewares/Auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import Checkbox from "expo-checkbox";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import Svg, { SvgXml } from "react-native-svg";
+import { lockPassword } from "../../assets/svg/modalSvg";
+import { EmailFS, PhoneFS } from "../../assets/svg/modalSvg";
 
 export default function Register({ navigation }) {
   const [fontsLoaded] = useFonts({
@@ -38,8 +42,7 @@ export default function Register({ navigation }) {
   const [psw2, setPsw2] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile,setMobile] = useState("");
-  // const [mob, setMobile] = useState("");
+  const [mobile, setMobile] = useState("");
   const [showPsw, setShowPsw] = useState(false);
   const [showConfirmPsw, setShowConfirmPsw] = useState(false);
   const phoneInput = useRef("");
@@ -61,7 +64,9 @@ export default function Register({ navigation }) {
       );
     }
   };
-
+  const handleOnChangePhoneNumber = (mobile) => {
+    setMobile(mobile);
+  };
   const register = () => {
     setIsLoad(true);
 
@@ -74,12 +79,11 @@ export default function Register({ navigation }) {
       Country: country,
       To_Number: mobile,
     };
-    console.log("above",data);
-
+    console.log("above", data);
 
     dispatch(AuthMiddleware.checkRegister(data))
       .then((user) => {
-        console.log("AbC",data);
+        console.log("AbC", data);
 
         setIsLoad(false);
         navigation.navigate(`otpscreen`, { data: data, response: user });
@@ -103,31 +107,15 @@ export default function Register({ navigation }) {
       });
   };
 
-  const handleOnChangePhoneNumber=(mobile) => {
-    setMobile(mobile);
-  }
-  // var data = {
-  //   To_Number: mobile,
-  // };
-  return (
+  console.log("above", mobile);
 
+  return (
     <View style={styles.container}>
-      {/* <View
-                style={{ flexDirection: 'row', justifyContent: 'flex-start', width: '100%', position: 'absolute', top: '5%' }}
-            >
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                    style={styles.backBox}
-                >
-                    <Image source={backarrow} style={styles.BackIcon} />
-                </TouchableOpacity>
-            </View> */}
       <View
         style={{
           flexDirection: "row",
           justifyContent: "flex-start",
           width: "100%",
-          // position: "absolute",
           top: "5%",
           left: "1%",
           marginTop: 20,
@@ -154,22 +142,42 @@ export default function Register({ navigation }) {
           Start reading your favourite books!{" "}
         </Text>
       </View>
-      {/* <View style={{ marginTop: '10%' }}>
-                <Image source={logo} style={styles.logo} />
-                {renderServerError()}
-            </View> */}
+    
       <ScrollView alignSelf={"center"} style={styles.PageContainer}>
-        <TextInput
-          value={name}
-          placeholder="Name"
-          style={styles.input}
-          placeholderTextColor={"#AFC2CF"}
-          onChangeText={(e) => setName(e)}
-        />
-        {errors.Full_Name && (
-          <Text style={styles.errorTxt}>{errors.Full_Name}</Text>
-        )}
         <View>
+          <Ionicons
+            name="ios-person-outline"
+            size={18}
+            color="#517A95"
+            style={{
+              position: "absolute",
+              top: "35%",
+              zIndex: 10,
+              left: "6%",
+            }}
+          />
+
+          <TextInput
+            value={name}
+            placeholder="Name"
+            style={styles.input}
+            placeholderTextColor={"#AFC2CF"}
+            onChangeText={(e) => setName(e)}
+          />
+          {errors.Full_Name && (
+            <Text style={styles.errorTxt}>{errors.Full_Name}</Text>
+          )}
+        </View>
+        <View>
+          <SvgXml
+            xml={EmailFS}
+            style={{
+              position: "absolute",
+              top: "34%",
+              zIndex: 10,
+              left: "6%",
+            }}
+          />
           <TextInput
             value={email}
             style={styles.input}
@@ -178,56 +186,49 @@ export default function Register({ navigation }) {
             onChangeText={(e) => setEmail(e)}
           />
         </View>
+        <View
+          style={{
+            height: "10%",
+            justifyContent: "center",
+            alignItems: "center",
+            marginVertical: 10,
+          }}
+        >
+          <SvgXml
+            xml={PhoneFS}
+            style={{
+              zIndex: 10,
+              right: "41%",
+              top: 30,
+            }}
+          />
 
-        {/* <PhoneInput
-            placeholder="Enter number"
-            international={true}
+          <PhoneInput
             defaultCode="PK"
             value={mobile}
-            withCountryCallingCode={true}
-            onChangeFormattedText={(e) => setMbl(e)}
-            textInputStyle={styles.input2}
-            containerStyle={styles.input}
-            textContainerStyle={styles.input1}
+            onChangePhoneNumber={handleOnChangePhoneNumber}
+            containerStyle={styles.inputContainer}
+            textInputStyle={styles.in}
+            flagStyle={styles.flag}
+            textProps={{
+              placeholder: "Enter phone number",
+              placeholderTextColor: "#AFC2CF",
+            }}
+            countryPickerButtonStyle={{ width: "20%" }}
+            codeTextStyle={{ marginLeft: 30 }}
           />
-          {errors.To_Number && (
-            <Text style={styles.errorTxt}>{errors.To_Number}</Text>
-          )} */}
-        <PhoneInput
-          defaultCode="PK"
-          value={mobile}
-          onChangeText={handleOnChangePhoneNumber}
-          containerStyle={styles.inputContainer}
-          textInputStyle={styles.in}
-          flagStyle={styles.flag}
-          textProps={{ placeholder: "Enter phone number", placeholderTextColor:"#AFC2CF"}}
-        />
+        </View>
 
-        {/* <View> */}
-        {/* <TextInput
-            value={psw}
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={showPsw == true ? false : true}
-            onChangeText={(e) => setPsw(e)}
-          />
-          <TouchableOpacity
-            onPress={() => setShowPsw(!showPsw)}
-            style={{ ...styles.pass, justifyContent: "center",  borderWidth:1 }}
-          >
-            <Image
-              source={showPsw == true ? close : open}
-              style={{
-                width: 16,
-                height: 16,
-                resizeMode: "contain",
-                alignSelf: "center",
-                // position:"absolute",
-        
-              }}            />
-          </TouchableOpacity> */}
-        {/* </View> */}
         <View style={{ position: "relative" }}>
+          <SvgXml
+            xml={lockPassword}
+            style={{
+              position: "absolute",
+              top: "35%",
+              zIndex: 10,
+              left: "5%",
+            }}
+          />
           <TextInput
             value={psw}
             style={styles.input}
@@ -243,23 +244,29 @@ export default function Register({ navigation }) {
             <Image
               source={showPsw == true ? close : open}
               style={{
-                // right:15,
+                bottom: 5,
                 width: 16,
                 height: 16,
                 resizeMode: "contain",
                 alignSelf: "center",
-                
               }}
             />
           </TouchableOpacity>
         </View>
-        {/* {errors.password && (
-          <Text style={styles.errorTxt}>{errors.password}</Text>
-        )} */}
+      
         {errors.Password && (
           <Text style={styles.errorTxt}>{errors.Password}</Text>
         )}
         <View style={{ position: "relative" }}>
+          <SvgXml
+            xml={lockPassword}
+            style={{
+              position: "absolute",
+              top: "35%",
+              zIndex: 10,
+              left: "5%",
+            }}
+          />
           <TextInput
             value={psw2}
             style={styles.input}
@@ -275,6 +282,7 @@ export default function Register({ navigation }) {
             <Image
               source={showConfirmPsw == true ? close : open}
               style={{
+                bottom: 5,
                 width: 16,
                 height: 16,
                 resizeMode: "contain",
@@ -302,21 +310,12 @@ export default function Register({ navigation }) {
           </View>
         </View>
 
-        {/* <Button
-          mode="contained"
-          uppercase={false}
-          style={styles.button}
-          onPress={() => register()}
-        >
-          Create Account
-        </Button> */}
 
         <View>
           <Button
             mode="contained"
             uppercase={false}
             style={styles.btn}
-            //onPress={() => navigation.navigate('home')}
             onPress={() => register()}
           >
             <Text style={styles.loginButtonText}>Create Account</Text>
@@ -344,18 +343,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
-    alignSelf:"center",
-    width:"100%"
+    alignSelf: "center",
+    width: "100%",
   },
   PageContainer: {
-    // textAlign: "center",
     width: "86%",
-    // marginVertical:10
-    // alignSelf:"center",
-    // justifyContent:"center",
-    // alignItems:"center",
-    // borderWidth:1,
-    // paddingHorizontal:10
   },
   BackIcon: {
     width: 25,
@@ -385,12 +377,12 @@ const styles = StyleSheet.create({
     height: 55,
     backgroundColor: "#fff",
     width: "100%",
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 0,
-    // paddingHorizontal: 8,
     borderColor: "rgba(81, 122, 149, 1)",
-    marginBottom: 7,
-    paddingVertical: 0,
+    marginBottom: 9,
+    paddingHorizontal: 10,
+    bottom: 10,
   },
   section: {
     flexDirection: "row",
@@ -404,29 +396,19 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   in: {
-    backgroundColor: "white",
     fontFamily: "OutfitRegular",
     top: 1,
-    placeholderTextColor:"#AFC2CF"
-    
+    placeholderTextColor: "#AFC2CF",
+    width: "90%",
+    left: "5%",
   },
 
   TextBox: {
-    // marginTop: "5%",
     width: "90%",
     paddingHorizontal: 8,
     alignSelf: "center",
-    // marginBottom: 35,
-    // borderWidth:1
   },
-  // button: {
-  //   width: 250,
-  //   borderRadius: 100,
-  //   marginVertical: 30,
-  //   paddingVertical: 5,
-  //   marginLeft: 40,
-  //   backgroundColor: colors.primary,
-  // },
+
   SendEmailBtn: {
     backgroundColor: colors.primary,
     position: "absolute",
@@ -456,47 +438,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   input: {
-    // height: 60,
-    // marginTop: 15,
-    // borderWidth: 1,
-    // paddingLeft: 20,
-    // borderRadius: 30,
-    // borderColor: "gainsboro",
-    // backgroundColor: "white",
-    // width: window.width * 0.9,
-    // fontFamily: "OutfitRegular",
     borderWidth: 1,
     borderColor: "rgba(81, 122, 149, 1)",
-    marginTop: 8,
-    padding: 15,
-    // width: "86%",
+    paddingHorizontal: 20,
+    paddingLeft: 60,
     borderRadius: 12,
     backgroundColor: "white",
     fontFamily: "OutfitRegular",
     height: 50,
     marginVertical: 9,
-  },
-  input1: {
-    height: 58,
-    marginTop: 0,
-    borderWidth: 0,
-    paddingLeft: 20,
-    paddingRight: 20,
-    borderRadius: 30,
-    borderColor: "gainsboro",
-    backgroundColor: "white",
-    fontSize: 10,
-    fontFamily: "OutfitSemiBold",
-  },
-  input2: {
-    height: 50,
-    marginTop: 0,
-    borderWidth: 0,
-    paddingLeft: 20,
-    borderColor: "gainsboro",
-    backgroundColor: "white",
-    paddingRight: 20,
-    marginRight: 20,
   },
   accountTxt: {
     fontSize: 13,
@@ -513,7 +463,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "red",
     marginTop: 5,
-    textAlign: "right",
+    left: 15,
     fontFamily: "OutfitThin",
   },
   RendererrorTxt: {
